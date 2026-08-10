@@ -1,0 +1,10 @@
+langchain
+langchain-mongodb
+langchain_groq
+gradio
+pymongo
+pandas
+python-dotenv
+fastapi
+uvicorn
+langgraph

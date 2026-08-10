@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandeep Text-to-SQL Agent Playground</title>
+    <link rel="stylesheet" href="../CSS-Files/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">S</div>
+            <div>
+                <h1 class="logo-text">Sandeep SQL Agent</h1>
+            </div>
+        </div>
+        <div class="header-controls">
+            <div class="badge badge-success">
+                <span style="display:inline-block; width:6px; height:6px; background-color:#10b981; border-radius:50%; margin-right:4px;"></span>
+                FastAPI Online
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
+                <!-- Sun Icon -->
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="display: none;">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                </svg>
+                <!-- Moon Icon -->
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Privacy & Security Rules -->
+            <div class="privacy-banner">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <div class="privacy-content">
+                    <div class="privacy-title">Privacy Protocol Active</div>
+                    Sensitive fields (customer_email, phone, aadhaar) are strictly masked and restricted from query generation.
+                </div>
+            </div>
+
+            <!-- Database Explorer Card -->
+            <div class="card">
+                <div class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                    </svg>
+                    Table: sandeep
+                </div>
+                <div class="schema-list">
+                    <div class="schema-item">
+                        <span class="schema-name">id</span>
+                        <span class="schema-type">INTEGER</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">customer_name</span>
+                        <span class="schema-type">VARCHAR</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">customer_email</span>
+                        <span class="schema-private">MASKED</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">phone</span>
+                        <span class="schema-private">MASKED</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">aadhaar</span>
+                        <span class="schema-private">MASKED</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">product_purchased</span>
+                        <span class="schema-type">VARCHAR</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">amount</span>
+                        <span class="schema-type">DECIMAL</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">purchase_date</span>
+                        <span class="schema-type">DATE</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">region</span>
+                        <span class="schema-type">VARCHAR</span>
+                    </div>
+                    <div class="schema-item">
+                        <span class="schema-name">status</span>
+                        <span class="schema-type">VARCHAR</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preset Queries Card -->
+            <div class="card">
+                <div class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 21l8.982-8.983m-8.982 3.887H3.75L16.5 3.75l-3.846 7.7M16.5 3.75 20.25 7.5" />
+                    </svg>
+                    Sample Prompts
+                </div>
+                <div class="presets-list">
+                    <button class="preset-btn" onclick="usePreset('Show the top 10 products purchased by total sales amount')">Top 10 Products by Sales</button>
+                    <button class="preset-btn" onclick="usePreset('Find all transactions in the East region with amount greater than 5000')">East region high-value sales</button>
+                    <button class="preset-btn" onclick="usePreset('Get average purchase amount grouped by month for 2025')">Monthly average purchases</button>
+                    <button class="preset-btn" onclick="usePreset('List all customers who purchased laptops, sorted by amount descending')">Laptop buyers by amount</button>
+                    <button class="preset-btn" onclick="usePreset('Give me the email addresses and phone numbers of customers who bought something in 2026')">Security Policy Test (Private Fields)</button>
+                </div>
+            </div>
+
+            <!-- API Configuration Card -->
+            <div class="card">
+                <div class="card-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.43l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    API Endpoint URL
+                </div>
+                <div class="settings-group">
+                    <input type="text" id="api-url-input" class="settings-input" value="http://localhost:8000/ask-agent" placeholder="Enter endpoint URL">
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            
+            <!-- Query Input Card -->
+            <div class="card input-card">
+                <div class="textarea-container">
+                    <textarea id="query-input" class="query-textarea" placeholder="Ask the agent to write a SQL query (e.g., 'Find all transactions in the East region with amount greater than 5000')"></textarea>
+                    
+                    <div class="input-actions">
+                        <div class="textarea-hints">
+                            <span>Press <kbd class="hint-badge">Ctrl + Enter</kbd> to execute</span>
+                        </div>
+                        <button id="submit-button" class="submit-btn" onclick="submitQuery()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                            </svg>
+                            Generate SQL
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loader / Processing State -->
+            <div id="loading-card" class="status-card">
+                <div class="spinner"></div>
+                <div class="status-content">
+                    <div class="status-title">Agent is thinking...</div>
+                    <div class="status-desc">Generating schema-aligned optimized SQLite SQL query.</div>
+                </div>
+            </div>
+
+            <!-- Error State Card -->
+            <div id="error-card" class="status-card" style="background-color: var(--error-bg); border-color: var(--error); color: var(--error);">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 1.75rem; height: 1.75rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+                <div class="status-content">
+                    <div class="status-title" id="error-title">API Connection Error</div>
+                    <div class="status-desc" id="error-desc" style="color: var(--error);">Could not reach the FastAPI backend. Make sure the server is running on the specified port.</div>
+                </div>
+            </div>
+
+            <!-- Results Output -->
+            <div id="results-container" class="results-container" style="display: none;">
+                
+                <div class="output-grid">
+                    
+                    <!-- Thought Card -->
+                    <div class="card">
+                        <div class="output-header">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Zm0 0v-9M12 9v-6M12 3h.008v.008H12V3Z" />
+                                </svg>
+                                Agent Thought Process
+                            </h3>
+                        </div>
+                        <div class="thought-bubble" id="thought-output"></div>
+                    </div>
+
+                    <!-- SQL Code Card -->
+                    <div class="card">
+                        <div class="output-header">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                                </svg>
+                                Generated SQL Query
+                            </h3>
+                            <button class="copy-btn" onclick="copySql()" title="Copy SQL to Clipboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:0.875rem; height:0.875rem;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H5.4m.6-2.25h10.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25H6.15a2.25 2.25 0 0 1-2.25-2.25V6.75A2.25 2.25 0 0 1 6.15 4.5Z" />
+                                </svg>
+                                <span id="copy-btn-text">Copy</span>
+                            </button>
+                        </div>
+                        <div class="sql-container">
+                            <pre class="sql-code" id="sql-output"></pre>
+                        </div>
+                    </div>
+
+                    <!-- Explanation Card -->
+                    <div class="card full-width-card explanation-card">
+                        <div class="output-header">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.17 48.17 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                                </svg>
+                                Query Explanation & Insights
+                            </h3>
+                        </div>
+                        <div class="explanation-text" id="explanation-output"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Empty Welcome State -->
+            <div id="empty-state" class="empty-state">
+                <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.467 5.99 5.99 0 0 0-1.925 3.546 5.974 5.974 0 0 1-2.133-1A3.75 3.75 0 0 0 12 18Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-9M12 9v-6M12 3h.008v.008H12V3Z" />
+                </svg>
+                <div class="empty-title">Ready for Your Question</div>
+                <div class="empty-desc">Enter a business question in plain English above or pick one of the sample prompts to generate schema-valid SQL.</div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Sandeep Text-to-SQL AI Agent Playground • Built with FastAPI, LangChain & Groq Qwen3-32B
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const queryInput = document.getElementById('query-input');
+        const submitButton = document.getElementById('submit-button');
+        const loadingCard = document.getElementById('loading-card');
+        const errorCard = document.getElementById('error-card');
+        const errorTitle = document.getElementById('error-title');
+        const errorDesc = document.getElementById('error-desc');
+        const resultsContainer = document.getElementById('results-container');
+        const emptyState = document.getElementById('empty-state');
+        const apiInput = document.getElementById('api-url-input');
+        if (window.location.origin && window.location.origin.includes('http')) {
+            apiInput.value = window.location.origin + '/ask-agent';
+        }
+
+        const thoughtOutput = document.getElementById('thought-output');
+        const sqlOutput = document.getElementById('sql-output');
+        const explanationOutput = document.getElementById('explanation-output');
+
+        // Theme Management
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcons();
+
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            updateThemeIcons();
+        });
+
+        function updateThemeIcons() {
+            if (currentTheme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Handle Ctrl + Enter in textarea
+        queryInput.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                submitQuery();
+            }
+        });
+
+        // Use Preset Helper
+        function usePreset(questionText) {
+            queryInput.value = questionText;
+            queryInput.focus();
+            submitQuery();
+        }
+
+        // SQL Syntax Highlighting
+        function highlightSql(sql) {
+            const keywords = [
+                'SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'ON', 'GROUP BY', 
+                'ORDER BY', 'LIMIT', 'AS', 'LEFT', 'RIGHT', 'INNER', 'OUTER', 
+                'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'TABLE', 'HAVING', 
+                'IN', 'IS', 'NULL', 'NOT', 'LIKE', 'DESC', 'ASC', 'ROUND', 
+                'COUNT', 'SUM', 'AVG', 'MIN', 'MAX'
+            ];
+            
+            let highlighted = sql;
+
+            // Escaping HTML entities first to prevent breaking layout
+            highlighted = highlighted
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            // Strings
+            highlighted = highlighted.replace(/('[^']*')/g, '<span class="sql-string">$1</span>');
+
+            // Comments
+            highlighted = highlighted.replace(/(--.*)/g, '<span class="sql-comment">$1</span>');
+
+            // Keywords (with word boundaries, case-insensitive logic)
+            keywords.forEach(keyword => {
+                const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
+                highlighted = highlighted.replace(regex, (match) => {
+                    return `<span class="sql-keyword">${match.toUpperCase()}</span>`;
+                });
+            });
+
+            // Numeric values
+            highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="sql-number">$1</span>');
+
+            // Common functions (e.g. ROUND(), COUNT())
+            const functions = ['ROUND', 'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'CONCAT'];
+            functions.forEach(func => {
+                const regex = new RegExp(`\\b(${func})\\(`, 'gi');
+                highlighted = highlighted.replace(regex, `<span class="sql-function">$1</span>(`);
+            });
+
+            return highlighted;
+        }
+
+        // Copy SQL helper
+        function copySql() {
+            const rawSqlText = sqlOutput.innerText;
+            navigator.clipboard.writeText(rawSqlText).then(() => {
+                const copyBtnText = document.getElementById('copy-btn-text');
+                copyBtnText.innerText = 'Copied!';
+                setTimeout(() => {
+                    copyBtnText.innerText = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Response Parser
+        // Parse the standard structured response:
+        // Thought: <content>
+        // SQL: ```sql <content> ```
+        // Result Explanation: <content>
+        function parseAgentResponse(rawText) {
+            let thought = '';
+            let sql = '';
+            let explanation = '';
+
+            // 1. Try to extract sql code block (allow matching unclosed code blocks during streaming)
+            const sqlRegex = /```sql([\s\S]*?)(?:```|$)/i;
+            const sqlMatch = rawText.match(sqlRegex);
+            if (sqlMatch && sqlMatch[1]) {
+                sql = sqlMatch[1].trim();
+            } else {
+                // Try fallback regex without sql language specifier
+                const genericCodeRegex = /```([\s\S]*?)(?:```|$)/;
+                const genericMatch = rawText.match(genericCodeRegex);
+                if (genericMatch && genericMatch[1]) {
+                    sql = genericMatch[1].trim();
+                }
+            }
+
+            // 2. Extract Thought
+            const thoughtRegex = /Thought:([\s\S]*?)(?:SQL:|$)/i;
+            const thoughtMatch = rawText.match(thoughtRegex);
+            if (thoughtMatch && thoughtMatch[1]) {
+                thought = thoughtMatch[1].trim();
+            }
+
+            // 3. Extract Explanation
+            const explanationRegex = /(?:Result Explanation|Explanation):([\s\S]*?)$/i;
+            const explanationMatch = rawText.match(explanationRegex);
+            if (explanationMatch && explanationMatch[1]) {
+                explanation = explanationMatch[1].trim();
+            } else if (sql) {
+                // Fallback: extract everything after the sql block
+                const parts = rawText.split(/```/);
+                if (parts.length >= 3) {
+                    explanation = parts.slice(2).join('').replace(/Result Explanation:/i, '').trim();
+                }
+            }
+
+            // If the parser failed to isolate sections, provide clean fallbacks
+            if (!thought && !sql && !explanation) {
+                // If it's a plain message (e.g. privacy warning or vague question reply)
+                explanation = rawText;
+                thought = 'No SQL generated for this query.';
+                sql = '-- No SQL statement was produced by the agent';
+            }
+
+            if (!thought) thought = 'The agent generated SQL directly without listing thoughts.';
+            if (!sql) sql = '-- No query generated';
+            if (!explanation) explanation = 'No explanation provided.';
+
+            return { thought, sql, explanation };
+        }
+
+        // Query Submission
+        async function submitQuery() {
+            const question = queryInput.value.trim();
+            if (!question) return;
+
+            // Reset UI States
+            submitButton.disabled = true;
+            loadingCard.style.display = 'flex';
+            errorCard.style.display = 'none';
+            resultsContainer.style.display = 'none';
+            emptyState.style.display = 'none';
+
+            const endpoint = apiInput.value.trim() || 'http://localhost:8000/ask-agent';
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+                }
+
+                // Show Results container early so user can see it stream
+                resultsContainer.style.display = 'flex';
+                loadingCard.style.display = 'none';
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let accumulatedText = "";
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    accumulatedText += decoder.decode(value, { stream: true });
+
+                    // Parse and render response in real-time
+                    const parsed = parseAgentResponse(accumulatedText);
+
+                    thoughtOutput.innerText = parsed.thought;
+                    sqlOutput.innerHTML = highlightSql(parsed.sql);
+                    explanationOutput.innerText = parsed.explanation;
+                }
+
+            } catch (err) {
+                console.error(err);
+                
+                // Customize error state display
+                errorTitle.innerText = "Query Execution Failed";
+                if (err.message.includes('Failed to fetch')) {
+                    errorDesc.innerText = `Could not connect to FastAPI server at ${endpoint}. Please ensure your backend server is running and check for CORS restrictions.`;
+                } else {
+                    errorDesc.innerText = `Error detail: ${err.message}`;
+                }
+                errorCard.style.display = 'flex';
+            } finally {
+                submitButton.disabled = false;
+                loadingCard.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
