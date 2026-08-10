@@ -270,7 +270,7 @@
         const resultsContainer = document.getElementById('results-container');
         const emptyState = document.getElementById('empty-state');
         const apiInput = document.getElementById('api-url-input');
-        if (window.location.origin && window.location.origin.includes('http')) {
+        if (window.location.origin && window.location.origin.includes('http') && !window.location.origin.includes('github.io')) {
             apiInput.value = window.location.origin + '/ask-agent';
         }
 
